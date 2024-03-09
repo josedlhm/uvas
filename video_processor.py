@@ -1,11 +1,11 @@
 # video_processor.py
-
+import streamlit as st
 from ultralytics import YOLO
 from ultralytics.solutions import object_counter
 import cv2
 import pandas as pd
 
-def process_video(video_path, model_path="yolov8n.pt", output_video_name="nueva_linea.avi"):
+def process_video(video_path, model_path="yolov8n.pt", output_video_name="output_video.avi"):
     """
     Process a video to count objects using YOLO and generate an output video and CSV with counts.
 
@@ -39,6 +39,14 @@ def process_video(video_path, model_path="yolov8n.pt", output_video_name="nueva_
     # Initialize a list to store data for each frame
     rows = []
 
+    # Get the total number of frames in the video
+    total_frames = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
+
+    print(f'the numnber of frames is {total_frames}')
+
+    # Initialize Streamlit progress bar
+    progress_bar = st.progress(0)
+
     # Process each frame in the video
     frame_index = 0
     while cap.isOpened():
@@ -62,6 +70,10 @@ def process_video(video_path, model_path="yolov8n.pt", output_video_name="nueva_
         video_writer.write(im0)
 
         frame_index += 1
+
+        if frame_index % 50 == 0:  
+            progress_percentage = int(100 * frame_index / total_frames)
+            progress_bar.progress(progress_percentage)
 
     # Release resources
     cap.release()
