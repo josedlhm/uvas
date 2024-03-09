@@ -56,8 +56,8 @@ def process_video(video_path, model_path="yolov8n.pt", output_video_name="nueva_
         timestamp = frame_index / fps
 
         # Append timestamp and object count to the DataFrame
-        df_counts = df_counts.append({"timestamp": timestamp, "object_count": counter.in_counts + counter.out_counts}, ignore_index=True)
-
+        new_row = pd.DataFrame([{"timestamp": timestamp, "object_count": counter.in_counts + counter.out_counts}])
+        df_counts = pd.concat([df_counts, new_row], ignore_index=True)
         # Write the annotated frame to the output video
         video_writer.write(im0)
 
