@@ -4,4 +4,4 @@ pandas
 opencv-python-headless
 ultralytics
 shapely>=2.0.0
-lap
+git+https://github.com/gatagat/lap@new-packaging
