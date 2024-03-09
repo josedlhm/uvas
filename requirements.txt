@@ -3,4 +3,5 @@ pandas
 opencv-python-headless
 ultralytics
 shapely>=2.0.0
+numpy
 lap
