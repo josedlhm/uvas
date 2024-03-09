@@ -68,8 +68,9 @@ def process_video(video_path, model_path="yolov8n.pt", output_video_name="output
 
         # Write the annotated frame to the output video
         video_writer.write(im0)
-
+        print(f'frame number {frame_index}')
         frame_index += 1
+        
 
         if frame_index % 50 == 0:  
             progress_percentage = int(100 * frame_index / total_frames)
