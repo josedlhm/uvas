@@ -4,4 +4,4 @@ pandas
 opencv-python-headless
 ultralytics
 shapely>=2.0.0
-git+git://github.com/gatagat/lap.git
+lapx
