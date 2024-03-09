@@ -36,8 +36,8 @@ def process_video(video_path, model_path="yolov8n.pt", output_video_name="nueva_
     counter = object_counter.ObjectCounter()
     counter.set_args(view_img=True, reg_pts=line_points, classes_names=model.names, draw_tracks=True)
 
-    # Initialize DataFrame to store timestamp and object count
-    df_counts = pd.DataFrame(columns=["timestamp", "object_count"])
+    # Initialize a list to store data for each frame
+    rows = []
 
     # Process each frame in the video
     frame_index = 0
@@ -55,9 +55,9 @@ def process_video(video_path, model_path="yolov8n.pt", output_video_name="nueva_
         # Calculate timestamp based on frame index and frame rate
         timestamp = frame_index / fps
 
-        # Append timestamp and object count to the DataFrame
-        new_row = pd.DataFrame([{"timestamp": timestamp, "object_count": counter.in_counts + counter.out_counts}])
-        df_counts = pd.concat([df_counts, new_row], ignore_index=True)
+        # Append timestamp and object count to the list
+        rows.append({"timestamp": timestamp, "object_count": counter.in_counts + counter.out_counts})
+
         # Write the annotated frame to the output video
         video_writer.write(im0)
 
@@ -67,6 +67,9 @@ def process_video(video_path, model_path="yolov8n.pt", output_video_name="nueva_
     cap.release()
     video_writer.release()
     cv2.destroyAllWindows()
+
+    # Create DataFrame from the collected rows
+    df_counts = pd.DataFrame(rows, columns=["timestamp", "object_count"])
 
     # Save DataFrame to CSV
     df_counts.to_csv('object_count.csv', index=False)
