@@ -16,7 +16,7 @@ def generate_coordinates(gpx_file, gpx_destination):
         lon = trkpt.get('lon')
         time_element = trkpt.find('default:time', ns)
         time = time_element.text if time_element is not None else None
-        data.append({'Timestamp': time, 'lat': [lat,lon]})
+        data.append({'Timestamp': time, 'Coordinates': [lat,lon]})
 
     # Create DataFrame
     gpx_coordinates = pd.DataFrame(data)
