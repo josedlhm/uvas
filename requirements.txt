@@ -1,7 +1,11 @@
 numpy
 streamlit
+streamlit-components
 pandas
 opencv-python-headless
 ultralytics
 shapely>=2.0.0
 lapx
+folium
+plotly
+lxml
