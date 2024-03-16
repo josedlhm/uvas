@@ -69,9 +69,8 @@ if uploaded_file is not None:
         create_and_display_map(df_counts, df_gps)
 
         st.write("## Second Geographical Distribution of Detected Cars")
-        df_counts_2 = pd.read_csv('object_count.csv')
         df_gps_2 = load_gps_data_2('files/sample_output.csv')
-        create_and_display_map_2(df_counts_2, df_gps_2)
+        create_and_display_map_2(df_counts, df_gps_2)
 
         with st.expander("Download Processed Results"):
             with open("output_video.avi", "rb") as file:

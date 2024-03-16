@@ -20,4 +20,5 @@ def generate_coordinates(gpx_file, gpx_destination):
 
     # Create DataFrame
     gpx_coordinates = pd.DataFrame(data)
+    gpx_coordinates['Coordinates'] = gpx_coordinates['Coordinates'].astype(float)
     gpx_coordinates.to_csv(gpx_destination, index=False)

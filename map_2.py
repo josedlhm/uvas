@@ -7,10 +7,11 @@ import folium
 def load_gps_data_2(gps_file_path):
     df_gps = pd.read_csv(gps_file_path)
     df_gps['TimeDifference'] = (pd.to_datetime(df_gps['Timestamp'], utc=True) - pd.to_datetime(df_gps['Timestamp'].iloc[0], utc=True)).dt.total_seconds()
+    df_gps.to_csv('Files/second_map_gps.csv')
     return df_gps
 
 def closest_match(row, df_gps):
-    differences = np.abs(df_gps['TimeDifference'] - row['Timestamp'])
+    differences = np.abs(df_gps['TimeDifference'] - row['timestamp'])
     min_difference_idx = np.argmin(differences)
     return df_gps['TimeDifference'].iloc[min_difference_idx]
 
