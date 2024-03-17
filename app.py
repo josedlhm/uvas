@@ -1,7 +1,6 @@
 import streamlit as st
 from video_processor import process_video
 from map import load_gps_data, create_and_display_map
-from map_2 import load_gps_data_2, create_and_display_map_2
 from make_chart import plot_object_count
 from process_data import create_historical_data
 from get_coordinates import generate_coordinates
@@ -63,14 +62,10 @@ if uploaded_file is not None:
         fig = plot_object_count(historical_data)
         st.plotly_chart(fig, use_container_width=True)
         
-        st.write("## Geographical Distribution of Detected Cars")
+        st.write("## Improved Geographical Distribution of Detected Cars")
         df_counts = pd.read_csv('object_count.csv')
-        df_gps = load_gps_data('files/carros.json')
+        df_gps = load_gps_data('files/sample_output.csv')
         create_and_display_map(df_counts, df_gps)
-
-        st.write("## Second Geographical Distribution of Detected Cars")
-        df_gps_2 = load_gps_data_2('files/sample_output.csv')
-        create_and_display_map_2(df_counts, df_gps_2)
 
         with st.expander("Download Processed Results"):
             with open("output_video.avi", "rb") as file:
